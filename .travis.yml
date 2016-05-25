@@ -12,8 +12,8 @@ env:
     - STAGING_INDEX=https://pypi.anaconda.com/ales-erjavec/simple/
 
     # wheel build requirements
-    - WHEEL_VERSION=0.29
-    - PIP_VERSION=8.1.2
+    - WHEEL_VER=0.29
+    - PIP_VER=8.1.2
     - NUMPY_BUILD_VER=1.9.3
   matrix:
 #    - NUMPY_VER=1.9.3 SCIPY_VER=0.16.1 SCIKIT_LEARN_VER==0.17.1
@@ -33,7 +33,7 @@ before_install:
   - ./tools/install-python $PYVER
   - ./tools/init-venv --python ${PYVER%.*} ~/.venv/${PYVER%.*}
   - source ~/.venv/${PYVER%.*}/bin/activate
-  - pip install wheel==$WHEEL_VERSION pip==$PIP_VERSION
+  - pip install wheel==$WHEEL_VER pip==$PIP_VER
   - pip install --no-deps --only-binary numpy numpy==$NUMPY_BUILD_VER
 
 install:
