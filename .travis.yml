@@ -17,16 +17,22 @@ env:
     - NUMPY_BUILD_VER=1.9.3
   matrix:
 #    - NUMPY_VER=1.9.3 SCIPY_VER=0.16.1 SCIKIT_LEARN_VER==0.17.1
-    - PYVER=3.4 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
-    - PYVER=3.5 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
+    #- PYVER=3.4.4 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
+    - PYVER=3.5.1 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
 
 cache:
-  pip: true
+#  pip: true
   ccache: true
+  directories:
+    - ~/Library/Caches/pip
+    - ~/Library/Caches/vagabond
 
 before_install:
-  - source terryfy/travis_tools.sh
-  - get_python_environment macpython $PYVER venv
+  # - source terryfy/travis_tools.sh
+  # - get_python_environment macpython $PYVER venv
+  - ./tools/install-python $PYVER
+  - ./tools/init-venv --python ${PYVER%.*} ~/.venv/${PYVER%.*}
+  - source ~/.venv/${PYVER%.*}/bin/activate
   - pip install wheel==$WHEEL_VERSION pip==$PIP_VERSION
   - pip install --no-deps --only-binary numpy numpy==$NUMPY_BUILD_VER
 
