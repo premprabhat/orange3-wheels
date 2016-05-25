@@ -1,0 +1,48 @@
+language: generic
+
+os: osx
+
+env:
+  global:
+    - REPO_DIR=orange3
+    - BUILD_COMMIT=3.3.3
+    - ANACONDA_USERNAME=ales-erjavec
+    # ANACONDA_PASSWORD=...
+    - secure: "J94CKF5Yfy4f/a7PMhNQzEi92PkuRvdOwexQhVDhrDDBB+QMrUtutAVIfeWX7JMNOZo1UkL3BgrskcEDlgLyNhGTORynXDNzTQPk+J8VI+0MEoCF8Mc61pi9Nxq0c7Ri8Tjr1ZP/+gPeuBnFblROI0MYvVbNbW85+HrkYyOJorFkwMfusYI7AraemBeuwYFrQ+TRi3vPyg9A8tDo4Ci1jbCQAo360KUTRHVjaRZghOtJgHNvaTbLIzmnzubnLKV9tGPM9ki2CsH+sZX2NqNZuPk5gCqXWhM/0AVgtO0YqiooADyxCoc8MEzsL3skkVxfS/jDbZNnaLUdowhbVUDps0BW6xz/ngzksL0OaXN7Zzy2TSFtaPr33Xo72awGQCNKuIAwCfjq5sLeoycLmcp8R1wRvhlWiQSweAUgDrlis2Wshm+iZheVUFqYte3EW5a6nmgJUczBrQ1JilqG6D3D5Y5z3QDy3vrG9Zw9L14NWKeRryxsMW4LGE675z4AvJk9y57TSf2d9XJJAbbcfRbRJ/mCebWQCrNCgKwR5A9TwtsC8JGypHJl4RQI32O/KGp8kC+QZr1EI7YNfw10gtePyR7WDAsSSfbo0M87NEiFLrD5+4Mcf0L1MX+B1yxU9NyxiOqcvuUguJiuGhWPDhBrqdxW21Rf9VmwBtGmjYv55JY="
+    - STAGING_INDEX=https://pypi.anaconda.com/ales-erjavec/simple/
+
+    # wheel build requirements
+    - WHEEL_VERSION=0.29
+    - PIP_VERSION=8.1.2
+    - NUMPY_BUILD_VER=1.9.3
+  matrix:
+#    - NUMPY_VER=1.9.3 SCIPY_VER=0.16.1 SCIKIT_LEARN_VER==0.17.1
+    - PYVER=3.4 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
+    - PYVER=3.5 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
+
+cache:
+  pip: true
+  ccache: true
+
+before_install:
+  - source terryfy/travis_tools.sh
+  - get_python_environment macpython $PYVER venv
+  - pip install wheel==$WHEEL_VERSION pip==$PIP_VERSION
+  - pip install --no-deps --only-binary numpy numpy==$NUMPY_BUILD_VER
+
+install:
+  - (cd orange3; git checkout $BUILD_COMMIT;)
+  - echo $(which python) $(python --version)
+  - pip wheel --no-deps --wheel-dir=./dist ./$REPO_DIR
+
+script:
+  - |
+      pip install --extra-index-url "$STAGING_INDEX" --only-binary :all: numpy==$NUMPY_VER scipy==$SCIPY_VER scikit-learn==$SCIKIT_LEARN_VER
+  - pip install --no-index --find-links ./dist --no-deps Orange
+  - pip install --extra-index-url $STAGING_INDEX --only-binary numpy,scipy,scikit-learn,bottlechest Orange
+  - python -m unittest -v Orange.tests
+
+after_success:
+  - pip install -q --extra-index-url "$STAGING_INDEX" anaconda-client
+  - anaconda login --username $ANACONDA_USER --password $ANACONDA_PASSWORD
+  - anaconda upload --label staging dist/*.whl
