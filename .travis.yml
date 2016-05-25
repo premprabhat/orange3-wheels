@@ -9,7 +9,7 @@ env:
     - ANACONDA_USERNAME=ales-erjavec
     # ANACONDA_PASSWORD=...
     - secure: "J94CKF5Yfy4f/a7PMhNQzEi92PkuRvdOwexQhVDhrDDBB+QMrUtutAVIfeWX7JMNOZo1UkL3BgrskcEDlgLyNhGTORynXDNzTQPk+J8VI+0MEoCF8Mc61pi9Nxq0c7Ri8Tjr1ZP/+gPeuBnFblROI0MYvVbNbW85+HrkYyOJorFkwMfusYI7AraemBeuwYFrQ+TRi3vPyg9A8tDo4Ci1jbCQAo360KUTRHVjaRZghOtJgHNvaTbLIzmnzubnLKV9tGPM9ki2CsH+sZX2NqNZuPk5gCqXWhM/0AVgtO0YqiooADyxCoc8MEzsL3skkVxfS/jDbZNnaLUdowhbVUDps0BW6xz/ngzksL0OaXN7Zzy2TSFtaPr33Xo72awGQCNKuIAwCfjq5sLeoycLmcp8R1wRvhlWiQSweAUgDrlis2Wshm+iZheVUFqYte3EW5a6nmgJUczBrQ1JilqG6D3D5Y5z3QDy3vrG9Zw9L14NWKeRryxsMW4LGE675z4AvJk9y57TSf2d9XJJAbbcfRbRJ/mCebWQCrNCgKwR5A9TwtsC8JGypHJl4RQI32O/KGp8kC+QZr1EI7YNfw10gtePyR7WDAsSSfbo0M87NEiFLrD5+4Mcf0L1MX+B1yxU9NyxiOqcvuUguJiuGhWPDhBrqdxW21Rf9VmwBtGmjYv55JY="
-    - STAGING_INDEX=https://pypi.anaconda.com/ales-erjavec/simple/
+    - STAGING_INDEX=https://pypi.anaconda.org/ales-erjavec/simple/
 
     # wheel build requirements
     - WHEEL_VER=0.29
@@ -17,8 +17,8 @@ env:
     - NUMPY_BUILD_VER=1.9.3
   matrix:
 #    - NUMPY_VER=1.9.3 SCIPY_VER=0.16.1 SCIKIT_LEARN_VER==0.17.1
-    #- PYVER=3.4.4 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
-    - PYVER=3.5.1 NUMPY_VER=1.11.1 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
+    #- PYVER=3.4.4 NUMPY_VER=1.11.0 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
+    - PYVER=3.5.1 NUMPY_VER=1.11.0 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
 
 cache:
 #  pip: true
