@@ -46,7 +46,7 @@ script:
   - pip install --only-binary numpy,scipy,scikit-learn numpy==$NUMPY_VER scipy==$SCIPY_VER scikit-learn==$SCIKIT_LEARN_VER
   - pip install --no-index --find-links ./dist --no-deps Orange
   - pip install --extra-index-url $STAGING_INDEX --only-binary numpy,scipy,scikit-learn,bottlechest Orange
-  - python -m unittest -v Orange.tests.test_table Orange.tests.test_classification
+#  - python -m unittest -v Orange.tests.test_table Orange.tests.test_classification
 
 after_success:
   - pip install -q anaconda-client
