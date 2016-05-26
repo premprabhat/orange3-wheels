@@ -42,11 +42,10 @@ install:
   - pip wheel --no-deps --wheel-dir=./dist ./$REPO_DIR
 
 script:
-  - |
-      pip install --extra-index-url "$STAGING_INDEX" --only-binary :all: numpy==$NUMPY_VER scipy==$SCIPY_VER scikit-learn==$SCIKIT_LEARN_VER
+  - pip install --extra-index-url "$STAGING_INDEX" --only-binary numpy,scipy,scikit-learn numpy==$NUMPY_VER scipy==$SCIPY_VER scikit-learn==$SCIKIT_LEARN_VER
   - pip install --no-index --find-links ./dist --no-deps Orange
   - pip install --extra-index-url $STAGING_INDEX --only-binary numpy,scipy,scikit-learn,bottlechest Orange
-  - python -m unittest -v Orange.tests
+#  - python -m unittest -v Orange.tests
 
 after_success:
   - pip install -q --extra-index-url "$STAGING_INDEX" anaconda-client
