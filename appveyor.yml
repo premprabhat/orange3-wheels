@@ -2,11 +2,11 @@
 
 environment:
   global:
-    - STAGING_INDEX=https://pypi.anaconda.org/ales-erjavec/simple
-    - GIT_COMMIT=3.3.3
-    # - ANACONDA_USERNAME=ales-erjavec
-    # - ANACONDA_PASSWORD=...
-    - secure: ...
+    STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
+    GIT_COMMIT: 3.3.3
+    # ANACONDA_USERNAME: ales-erjavec
+    # ANACONDA_PASSWORD:
+    #     secure: ...
 
   matrix:
     - PYTHON: "C:\\Python34"
@@ -21,10 +21,10 @@ cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-  - "%PYTHON%\\python -m pip install 'wheel=0.26.*' 'pip==8.1.*'"
+  - "%PYTHON%\\python -m pip install wheel==0.26.* pip==8.1.*"
   - "%PYTHON%\\python -m pip install --extra-index-url %STAGING_INDEX% --only-binary numpy numpy==1.9.3"
 
-build:
+build_script:
   - cd orange3
   - git checkout %GIT_COMMIT%
   - "%PYTHON%\\python -m pip wheel --no-deps -w dist ./"
@@ -38,5 +38,4 @@ test_script:
 #  - python -m unittest -v Orange.tests
 
 artifacts:
-  # bdist_wheel puts your built wheel in the dist directory
   - path: dist\*
