@@ -25,6 +25,7 @@ install:
   - "%PYTHON%\\python -m pip install --extra-index-url %STAGING_INDEX% --only-binary numpy numpy==1.9.3"
 
 build_script:
+  - git submodule update --init
   - cd orange3
   - git checkout %GIT_COMMIT%
   - "%PYTHON%\\python -m pip wheel --no-deps -w dist ./"
