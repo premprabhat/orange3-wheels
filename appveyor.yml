@@ -2,6 +2,7 @@
 
 environment:
   global:
+    REPO_DIR: orange3
     STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
     GIT_COMMIT: 3.3.3
     # ANACONDA_USERNAME: ales-erjavec
@@ -26,16 +27,18 @@ install:
 
 build_script:
   - git submodule update --init
-  - cd orange3
+  - cd %REPO_DIR%
   - git checkout %GIT_COMMIT%
-  - "%PYTHON%\\python -m pip wheel --no-deps -w dist ./"
+  - cd ..
+  - "%PYTHON%\\python -m pip wheel --no-deps -w dist ./%REPO_DIR%"
 
 test_script:
   - "%PYTHON%\\python -m venv --clear %USERPROFILE%\\testenv"
   - "%USERPROFILE%\\testenv\\Scripts\\activate"
-  - python
-  - "python -m pip install --no-deps --no-index -f dist Orange"
-  - "python -m pip install --extra-index-url %STAGING_INDEX%  --only-binary numpy,scipy,bottlechest,scikit-learn Orange"
+#  - python -c "import sys; print(sys.prefix)"
+#  - python -c "import sys; print(sys.version)"
+  - python -m pip install --no-deps --no-index --find-links dist Orange
+  - python -m pip install --extra-index-url %STAGING_INDEX%  --only-binary numpy,scipy,bottlechest,scikit-learn Orange
 #  - python -m unittest -v Orange.tests
 
 artifacts:
