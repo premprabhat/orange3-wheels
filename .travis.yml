@@ -49,5 +49,5 @@ script:
 
 after_success:
   - pip install -q --extra-index-url "$STAGING_INDEX" anaconda-client
-  - anaconda login --username $ANACONDA_USER --password $ANACONDA_PASSWORD
+  - anaconda login --username $ANACONDA_USERNAME --password $ANACONDA_PASSWORD
   - anaconda upload --label staging dist/*.whl
