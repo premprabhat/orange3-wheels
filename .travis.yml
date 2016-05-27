@@ -52,4 +52,4 @@ script:
 
 after_success:
   - pip install -q anaconda-client
-  - anaconda --token $ANACONDA_CLOUD_TOKEN upload --label staging --force dist/*.whl
+  - anaconda --token $ANACONDA_CLOUD_TOKEN upload --no-progress --label staging --force dist/*.whl

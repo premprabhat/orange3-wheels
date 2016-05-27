@@ -60,4 +60,4 @@ artifacts:
 on_success:
   - "echo %CWD%"
   - "%PYTHON%\\python -m pip install anaconda-client"
-  - "%PYTHON%\\Scripts\\anaconda --token %ANACONDA_CLOUD_TOKEN% upload --label staging --force dist\\*.whl"
+  - "%PYTHON%\\Scripts\\anaconda --token %ANACONDA_CLOUD_TOKEN% upload --no-progress --label staging --force dist\\*.whl"
