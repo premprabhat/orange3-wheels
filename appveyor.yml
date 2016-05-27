@@ -5,9 +5,10 @@ environment:
     REPO_DIR: orange3
     GIT_COMMIT: 3.3.3
     STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
-    # ANACONDA_USERNAME: ales-erjavec
-    # ANACONDA_PASSWORD:
-    #     secure: ...
+
+    ANACONDA_USERNAME: ales-erjavec
+    ANACONDA_PASSWORD:
+      secure: iluBpw9gWJXbpv+PfK0smqZVnedQqy0BcsR39YY7jAc=
 
   matrix:
     - PYTHON: "C:\\Python34"
@@ -37,7 +38,7 @@ build_script:
   - cd %REPO_DIR%
   - git checkout %GIT_COMMIT%
   - "..\\tools\\win\\build.cmd %PYTHON%\\python setup.py clean --all %BUILD_GLOBAL_OPTIONS% bdist_wheel --dist-dir ../dist"
-  # - cd ..
+  - cd ..
   #- "tools\\win\\build.cmd %PYTHON%\\python -m pip wheel --verbose --no-deps -w dist %WHEEL_GLOBAL_OPTIONS% ./%REPO_DIR%"
 
 test_script:
@@ -50,5 +51,13 @@ test_script:
 #  - python -m pip install --extra-index-url %STAGING_INDEX%  --only-binary numpy,scipy,bottlechest,scikit-learn Orange
 #  - python -m unittest -v Orange.tests
 
+
 artifacts:
   - path: dist\*
+
+
+on_success:
+  - "echo %CWD%"
+  - "%PYTHON%\\python -m pip install anaconda-client"
+  - "%PYTHON%\\Scripts\\anaconda login --username %ANACONDA_USERNAME% --password %ANACONDA_PASSWORD%"
+  - "%PYTHON%\\Scripts\\anaconda upload --label staging --force dist\\*.whl"
