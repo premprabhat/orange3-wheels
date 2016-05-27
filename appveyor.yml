@@ -18,12 +18,12 @@ environment:
     - PYTHON: "C:\\Python35"
       # disable threaded builds on Python 3.5 when using numpy's distutils
       # (https://github.com/numpy/numpy/issues/7607)
-      WHEEL_GLOBAL_OPTIONS: "--global-option build --global-option -j1"
+      BUILD_GLOBAL_OPTIONS: "build -j1"
 
     - PYTHON: "C:\\Python35-x64"
       # disable threaded builds on Python 3.5 when using numpy's distutils
       # (https://github.com/numpy/numpy/issues/7607)
-      WHEEL_GLOBAL_OPTIONS: "--global-option build --global-option -j1"
+      BUILD_GLOBAL_OPTIONS: "build -j1"
 
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
@@ -36,8 +36,9 @@ build_script:
   - git submodule update --init
   - cd %REPO_DIR%
   - git checkout %GIT_COMMIT%
-  - cd ..
-  - "tools\\win\\build.cmd %PYTHON%\\python -m pip wheel --verbose --no-deps -w dist %WHEEL_GLOBAL_OPTIONS% ./%REPO_DIR%"
+  - "..\\tools\\win\\build.cmd %PYTHON%\\python setup.py clean --all %BUILD_GLOBAL_OPTIONS% bdist_wheel --dist-dir ../dist"
+  # - cd ..
+  #- "tools\\win\\build.cmd %PYTHON%\\python -m pip wheel --verbose --no-deps -w dist %WHEEL_GLOBAL_OPTIONS% ./%REPO_DIR%"
 
 test_script:
   - "%PYTHON%\\python -m venv --clear %USERPROFILE%\\testenv"
