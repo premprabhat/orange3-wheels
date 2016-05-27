@@ -6,9 +6,11 @@ env:
   global:
     - REPO_DIR=orange3
     - BUILD_COMMIT=3.3.3
-    - ANACONDA_USERNAME=ales-erjavec
-    # ANACONDA_PASSWORD=...
-    - secure: "J94CKF5Yfy4f/a7PMhNQzEi92PkuRvdOwexQhVDhrDDBB+QMrUtutAVIfeWX7JMNOZo1UkL3BgrskcEDlgLyNhGTORynXDNzTQPk+J8VI+0MEoCF8Mc61pi9Nxq0c7Ri8Tjr1ZP/+gPeuBnFblROI0MYvVbNbW85+HrkYyOJorFkwMfusYI7AraemBeuwYFrQ+TRi3vPyg9A8tDo4Ci1jbCQAo360KUTRHVjaRZghOtJgHNvaTbLIzmnzubnLKV9tGPM9ki2CsH+sZX2NqNZuPk5gCqXWhM/0AVgtO0YqiooADyxCoc8MEzsL3skkVxfS/jDbZNnaLUdowhbVUDps0BW6xz/ngzksL0OaXN7Zzy2TSFtaPr33Xo72awGQCNKuIAwCfjq5sLeoycLmcp8R1wRvhlWiQSweAUgDrlis2Wshm+iZheVUFqYte3EW5a6nmgJUczBrQ1JilqG6D3D5Y5z3QDy3vrG9Zw9L14NWKeRryxsMW4LGE675z4AvJk9y57TSf2d9XJJAbbcfRbRJ/mCebWQCrNCgKwR5A9TwtsC8JGypHJl4RQI32O/KGp8kC+QZr1EI7YNfw10gtePyR7WDAsSSfbo0M87NEiFLrD5+4Mcf0L1MX+B1yxU9NyxiOqcvuUguJiuGhWPDhBrqdxW21Rf9VmwBtGmjYv55JY="
+    # Token generated using:
+    #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
+    #- ANACONDA_CLOUD_TOKEN=...
+    - secure: "gemWxCdrYHNO+fiZc97a9Gr6hNfUbMAWYfA9jmnjW70l0dsAywDsI/Hw0gxoqPeqVUQfY65Qxyx5GlacLdyZiNGZ7+avJWefbMILxL1kzN/jBd1is2Cm/wZ2Rc51p8rpfbgo+tB4W6EAb9ZjnJNlJXH+CFBOD9j5vLTr989wBFNDvlG211txDHeAwTp/jezkMO0IYci8X62pFbQEMysIamtrNbgLPDJOXNCZ6HA96uNxaT3XbFpNcizeLVTW1rlcKO8zr7ij36p8Zq77R35rqHxF1ZxtWvT4H5jzEAVH7CSMcHjxTFyzT7hmozifLetR1ZrnMDSx65kiF9xFACkZI7nEkh+PgaBUOh/11mALskey2zqm1g+g9520peP3p7EH1vlU2HBVeMZvU3iQANS7mQfeGlerLKIOrrPKmMmhUPybfpTapAYCKS+Uh8dbfnj9Fnqqzj4kckbTxmADzrwgX9UAjsQ+VS+0yyqbNDu8yXvcpwWt2wyeNGkci4twjXfGPIPZuV22ckheCMC1241+E/7aEoBDfMlM4lEmfhd1Jb/Onpar52fVgFwbvGXqn3RWFJ7Y7s2dyvIkJxGv4LrnJYYq3+DV1JeVD+2f9Uo/vcl2JfHDwu54vchiNMp2PQdfid2lU4uvQ2iLfoUglK5QrT8LANML2xycRBudSt/qCio="
+
     - STAGING_INDEX=https://pypi.anaconda.org/ales-erjavec/simple/
 
     # PyPi wheel build requirements
@@ -50,5 +52,4 @@ script:
 
 after_success:
   - pip install -q anaconda-client
-  - anaconda login --username $ANACONDA_USERNAME --password $ANACONDA_PASSWORD
-  - anaconda upload --label staging --force dist/*.whl
+  - anaconda --token $ANACONDA_CLOUD_TOKEN upload --label staging --force dist/*.whl

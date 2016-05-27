@@ -6,9 +6,10 @@ environment:
     GIT_COMMIT: 3.3.3
     STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
 
-    ANACONDA_USERNAME: ales-erjavec
-    ANACONDA_PASSWORD:
-      secure: iluBpw9gWJXbpv+PfK0smqZVnedQqy0BcsR39YY7jAc=
+    # Token generated using:
+    #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
+    ANACONDA_CLOUD_TOKEN:
+      secure: isszhpT8JyWuukJK1f7j8v64phXebwQd4NRhc7/eCkRxVz1AKTNgyoR9fxpYd7eI
 
   matrix:
     - PYTHON: "C:\\Python34"
@@ -59,5 +60,4 @@ artifacts:
 on_success:
   - "echo %CWD%"
   - "%PYTHON%\\python -m pip install anaconda-client"
-  - "%PYTHON%\\Scripts\\anaconda login --username %ANACONDA_USERNAME% --password %ANACONDA_PASSWORD%"
-  - "%PYTHON%\\Scripts\\anaconda upload --label staging --force dist\\*.whl"
+  - "%PYTHON%\\Scripts\\anaconda --token %ANACONDA_CLOUD_TOKEN% upload --label staging --force dist\\*.whl"
