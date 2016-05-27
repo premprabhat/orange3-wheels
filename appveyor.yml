@@ -3,8 +3,8 @@
 environment:
   global:
     REPO_DIR: orange3
-    STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
     GIT_COMMIT: 3.3.3
+    STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
     # ANACONDA_USERNAME: ales-erjavec
     # ANACONDA_PASSWORD:
     #     secure: ...
@@ -13,6 +13,7 @@ environment:
     - PYTHON: "C:\\Python34"
 
     - PYTHON: "C:\\Python34-x64"
+      DISTUTILS_USE_SDK: "1"
 
     - PYTHON: "C:\\Python35"
 
@@ -30,7 +31,7 @@ build_script:
   - cd %REPO_DIR%
   - git checkout %GIT_COMMIT%
   - cd ..
-  - "%PYTHON%\\python -m pip wheel --no-deps -w dist ./%REPO_DIR%"
+  - "tools\\win\\build.cmd %PYTHON%\\python -m pip wheel --verbose --no-deps -w dist ./%REPO_DIR%"
 
 test_script:
   - "%PYTHON%\\python -m venv --clear %USERPROFILE%\\testenv"
