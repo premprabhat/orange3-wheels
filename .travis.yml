@@ -30,10 +30,8 @@ cache:
     - ~/Library/Caches/vagabond
 
 before_install:
-  # - source terryfy/travis_tools.sh
-  # - get_python_environment macpython $PYVER venv
-  - ./tools/install-python $PYVER
-  - ./tools/init-venv --python ${PYVER%.*} ~/.venv/${PYVER%.*}
+  - ./tools/osx/install-python $PYVER
+  - ./tools/osx/init-venv --python ${PYVER%.*} ~/.venv/${PYVER%.*}
   - source ~/.venv/${PYVER%.*}/bin/activate
   - pip install wheel==$WHEEL_VER pip==$PIP_VER
   - pip install --no-deps --only-binary numpy numpy==$NUMPY_BUILD_VER
