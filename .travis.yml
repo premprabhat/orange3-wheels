@@ -37,7 +37,7 @@ before_install:
   - pip install --no-deps --only-binary numpy numpy==$NUMPY_BUILD_VER
 
 install:
-  - (cd orange3; git checkout $BUILD_COMMIT;)
+  - (cd $REPO_DIR; git checkout $BUILD_COMMIT;)
   - echo $(which python)
   - echo $(python -c "import sys; print(sys.version)")
   - pip wheel --no-deps --wheel-dir=./dist ./$REPO_DIR
