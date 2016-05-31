@@ -3,7 +3,7 @@
 environment:
   global:
     REPO_DIR: orange3
-    GIT_COMMIT: 3.3.3
+    GIT_COMMIT: 3.3.4
     STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
 
     # Token generated using:
@@ -48,8 +48,8 @@ test_script:
 #  - python -c "import sys; print(sys.prefix)"
 #  - python -c "import sys; print(sys.version)"
 #  - python -m pip install pip==8.1.*
-#  - python -m pip install --no-deps --no-index --find-links dist Orange
-#  - python -m pip install --extra-index-url %STAGING_INDEX%  --only-binary numpy,scipy,bottlechest,scikit-learn Orange
+#  - python -m pip install --no-deps --no-index --find-links dist Orange3
+#  - python -m pip install --extra-index-url %STAGING_INDEX%  --only-binary numpy,scipy,bottlechest,scikit-learn Orange3
 #  - python -m unittest -v Orange.tests
 
 

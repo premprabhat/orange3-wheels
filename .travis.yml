@@ -5,7 +5,7 @@ os: osx
 env:
   global:
     - REPO_DIR=orange3
-    - BUILD_COMMIT=3.3.3
+    - BUILD_COMMIT=3.3.4
     # Token generated using:
     #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
     #- ANACONDA_CLOUD_TOKEN=...
@@ -44,8 +44,8 @@ install:
 
 script:
   - pip install --only-binary numpy,scipy,scikit-learn numpy==$NUMPY_VER scipy==$SCIPY_VER scikit-learn==$SCIKIT_LEARN_VER
-  - pip install --no-index --find-links ./dist --no-deps Orange
-  - pip install --extra-index-url $STAGING_INDEX --only-binary numpy,scipy,scikit-learn,bottlechest Orange
+  - pip install --no-index --find-links ./dist --no-deps Orange3
+  - pip install --extra-index-url $STAGING_INDEX --only-binary numpy,scipy,scikit-learn,bottlechest Orange3
   # Cannot run full core test suite yet
   - python -c "import Orange.data, Orange.classification, Orange.regression, Orange.clustering"
 
