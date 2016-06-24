@@ -37,10 +37,12 @@ before_install:
   - pip install --no-deps --only-binary numpy numpy==$NUMPY_BUILD_VER
 
 install:
-  - (cd $REPO_DIR; git checkout $BUILD_COMMIT;)
+  - cd $REPO_DIR
+  - git checkout $BUILD_COMMIT
   - echo $(which python)
   - echo $(python -c "import sys; print(sys.version)")
-  - pip wheel --verbose --no-deps --wheel-dir=./dist ./$REPO_DIR
+  - python setup.py clean --all bdist_wheel --dist-dir ../dist
+  - cd ..
 
 script:
   - pip install --only-binary numpy,scipy,scikit-learn numpy==$NUMPY_VER scipy==$SCIPY_VER scikit-learn==$SCIKIT_LEARN_VER
