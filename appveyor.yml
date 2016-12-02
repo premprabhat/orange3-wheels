@@ -3,7 +3,7 @@
 environment:
   global:
     REPO_DIR: orange3
-    GIT_COMMIT: 3.3.8
+    GIT_COMMIT: 3.3.9
     STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
 
     # Token generated using:
