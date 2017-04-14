@@ -44,6 +44,8 @@ cache:
 install:
   - "%PYTHON%\\python -m pip install wheel==0.26.* pip==9.*"
   - "%PYTHON%\\python -m pip install --extra-index-url %STAGING_INDEX% numpy==%NUMPY_BUILD_VER%"
+  # https://bugs.python.org/issue29943
+  - '%PYTHON%\python -c "import sys; assert not sys.version_info[:3] == (3, 6, 1)"'
 
 build_script:
   - git submodule update --init
