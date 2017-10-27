@@ -10,7 +10,7 @@ environment:
     # Token generated using:
     #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
     ANACONDA_CLOUD_TOKEN:
-      secure: isszhpT8JyWuukJK1f7j8v64phXebwQd4NRhc7/eCkRxVz1AKTNgyoR9fxpYd7eI
+      secure: B0DLvNSlMvA4Uu2zwjjgcIAj5rgfhV4AzaIQxCau3KfMITaTV3x6cRrGfnZXfx+L
 
   matrix:
     - PYTHON: "C:\\Python34"
