@@ -28,12 +28,12 @@ environment:
       # (https://github.com/numpy/numpy/issues/7607)
       BUILD_GLOBAL_OPTIONS: "build -j1"
 
-    - PYTHON: "C:\\Miniconda36"
+    - PYTHON: "C:\\Python36"
       # disable threaded builds on Python 3.6 when using numpy's distutils
       # (https://github.com/numpy/numpy/issues/7607)
       BUILD_GLOBAL_OPTIONS: "build -j1"
 
-    - PYTHON: "C:\\Miniconda36-x64"
+    - PYTHON: "C:\\Python36-x64"
       # disable threaded builds on Python 3.6 when using numpy's distutils
       # (https://github.com/numpy/numpy/issues/7607)
       BUILD_GLOBAL_OPTIONS: "build -j1"
