@@ -38,6 +38,12 @@ environment:
       # (https://github.com/numpy/numpy/issues/7607)
       BUILD_GLOBAL_OPTIONS: "build -j1"
 
+    - PYTHON: "C:\\Python37"
+      NUMPY_BUILD_VER: 1.14.5
+
+    - PYTHON: "C:\\Python37-x64"
+      NUMPY_BUILD_VER: 1.14.5
+
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
