@@ -4,7 +4,7 @@ environment:
   global:
     REPO_DIR: orange3
     BUILD_BRANCH: master
-    BUILD_COMMIT: 3.17.0
+    BUILD_COMMIT: 3.18.0
     STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
     NUMPY_BUILD_VER: 1.9.3
     # Token generated using:
@@ -13,11 +13,6 @@ environment:
       secure: B0DLvNSlMvA4Uu2zwjjgcIAj5rgfhV4AzaIQxCau3KfMITaTV3x6cRrGfnZXfx+L
 
   matrix:
-    - PYTHON: "C:\\Python34"
-
-    - PYTHON: "C:\\Python34-x64"
-      DISTUTILS_USE_SDK: "1"
-
     - PYTHON: "C:\\Python35"
       # disable threaded builds on Python 3.5 when using numpy's distutils
       # (https://github.com/numpy/numpy/issues/7607)
