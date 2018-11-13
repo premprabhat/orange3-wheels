@@ -13,11 +13,6 @@ environment:
       secure: B0DLvNSlMvA4Uu2zwjjgcIAj5rgfhV4AzaIQxCau3KfMITaTV3x6cRrGfnZXfx+L
 
   matrix:
-    - PYTHON: "C:\\Python34"
-
-    - PYTHON: "C:\\Python34-x64"
-      DISTUTILS_USE_SDK: "1"
-
     - PYTHON: "C:\\Python35"
       # disable threaded builds on Python 3.5 when using numpy's distutils
       # (https://github.com/numpy/numpy/issues/7607)
@@ -58,18 +53,12 @@ build_script:
   - cd %REPO_DIR%
   - git fetch origin %BUILD_BRANCH%
   - git checkout %BUILD_COMMIT%
-  - "..\\tools\\win\\build.cmd %PYTHON%\\python setup.py clean --all %BUILD_GLOBAL_OPTIONS% bdist_wheel --dist-dir ../dist"
+  - "%PYTHON%\\python setup.py clean --all %BUILD_GLOBAL_OPTIONS% bdist_wheel --dist-dir ../dist"
   - cd ..
 
 test_script:
   - "%PYTHON%\\python -m venv --clear %USERPROFILE%\\testenv"
   - "%USERPROFILE%\\testenv\\Scripts\\activate"
-#  - python -c "import sys; print(sys.prefix)"
-#  - python -c "import sys; print(sys.version)"
-#  - python -m pip install pip==8.1.*
-#  - python -m pip install --no-deps --no-index --find-links dist --pre Orange3
-#  - python -m pip install --extra-index-url %STAGING_INDEX%  --only-binary numpy,scipy,bottlechest,scikit-learn Orange3
-#  - python -m unittest -v Orange.tests
 
 
 artifacts:
