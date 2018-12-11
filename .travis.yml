@@ -6,7 +6,7 @@ env:
   global:
     - REPO_DIR=orange3
     - BUILD_BRANCH=master
-    - BUILD_COMMIT=3.18.0
+    - BUILD_COMMIT=3.19.0
     # Token generated using:
     #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
     #- ANACONDA_CLOUD_TOKEN=...
@@ -20,7 +20,6 @@ env:
     - NUMPY_BUILD_VER=1.9.3
 
   matrix:
-    - PYVER=3.5.2 NUMPY_VER=1.11.3 SCIPY_VER=0.17.1 SCIKIT_LEARN_VER==0.17.1
     - PYVER=3.6.0 NUMPY_VER=1.11.3 SCIPY_VER=0.18.1 SCIKIT_LEARN_VER==0.18.1
     - PYVER=3.7.0 NUMPY_BUILD_VER=1.14.5 NUMPY_VER=1.14.5 SCIPY_VER=1.1.0 SCIKIT_LEARN_VER=0.19.2
 

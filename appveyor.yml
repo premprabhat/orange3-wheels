@@ -4,7 +4,7 @@ environment:
   global:
     REPO_DIR: orange3
     BUILD_BRANCH: master
-    BUILD_COMMIT: 3.18.0
+    BUILD_COMMIT: 3.19.0
     STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
     NUMPY_BUILD_VER: 1.9.3
     # Token generated using:
@@ -13,16 +13,6 @@ environment:
       secure: 8nyg3UvcGNThF6GKADazElqSPuQrExpj2fIw3h1glFFVYSCIM0nM73pQdQwF7SGP
 
   matrix:
-    - PYTHON: "C:\\Python35"
-      # disable threaded builds on Python 3.5 when using numpy's distutils
-      # (https://github.com/numpy/numpy/issues/7607)
-      BUILD_GLOBAL_OPTIONS: "build -j1"
-
-    - PYTHON: "C:\\Python35-x64"
-      # disable threaded builds on Python 3.5 when using numpy's distutils
-      # (https://github.com/numpy/numpy/issues/7607)
-      BUILD_GLOBAL_OPTIONS: "build -j1"
-
     - PYTHON: "C:\\Python36"
       # disable threaded builds on Python 3.6 when using numpy's distutils
       # (https://github.com/numpy/numpy/issues/7607)
