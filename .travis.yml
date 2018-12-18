@@ -67,6 +67,6 @@ script:
 
 after_success:
   - md5 dist/*.whl
-  - curl --upload-file dist/*.whl https://transfer.sh/
+  - echo $(curl --upload-file dist/*.whl https://transfer.sh/)
   - ~/.venv/util/bin/pip install -q anaconda-client
   - ~/.venv/util/bin/anaconda --token $ANACONDA_CLOUD_TOKEN upload --no-progress --label staging --force dist/*.whl
