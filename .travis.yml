@@ -18,6 +18,7 @@ env:
     - WHEEL_VER=0.29
     - PIP_VER=9.0.3
     - NUMPY_BUILD_VER=1.9.3
+    - SPHINX_BUILD_VER=1.8.2
 
   matrix:
     - PYVER=3.6.0 NUMPY_VER=1.11.3 SCIPY_VER=0.18.1 SCIKIT_LEARN_VER==0.18.1
@@ -46,7 +47,7 @@ before_install:
   - ./tools/osx/install-python $PYVER
   - ./tools/osx/init-venv --python ${PYVER%.*} ~/.venv/${PYVER%.*}
   - source ~/.venv/${PYVER%.*}/bin/activate
-  - pip install -f ./wheels wheel==$WHEEL_VER pip==$PIP_VER
+  - pip install -f ./wheels wheel==$WHEEL_VER pip==$PIP_VER sphinx==$SPHINX_BUILD_VER
   - pip install -f ./wheels --only-binary numpy numpy==$NUMPY_BUILD_VER
 
 install:
