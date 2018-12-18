@@ -13,7 +13,7 @@ env:
     - secure: "07zAlPFT27b6Ja54EYO6R1hzVH9GStRvXghEaPYobJXmda6qVkPkfsJOYXhQYaNmwY6IwEDvf00VaqxbWVxnfWkxzPhhIom8ePG2NXuhcbODpIPjA8KgWYJpgRQWcVTz8yoF1gldzpwZ/6+QzvVIpSPx0/04/AHRm4QS7O0t1luhGYUdMe9xJBRTN834L3KUAWbRPmtx1Z1+gsAFUSsv8I1H4tHKhOyCuZ8GMQsSLi4K62mTAvu0dmVEFOsmqj+O+ZdD3k+yeknmuPefD25biKJcJBCprq75EtGR7OLYoC/oCF3h4UuofkW999w5oyvM9qFEouxEM4X2geqQk/96C65imh2hGnEHyJQNo936lAh9Wd1yjxAd36PPCuiiB2qTvoSaNVoSBxgxvDD3t2GllZsp2/F8ve3jSrnN2lIn4AMyqMmIjufejbE8ITBErnCnbnxXDjsIcYZq1kYhz2iF7kGndUI0C3qiWH+DNQXAKuVvynrGpx64xA5PVfqhvpkvWfgv53vQ/F1RC/49Ez10ntAAFDMlsPp0oAkejz7YTJG5fmDFM5yb6BgyHE7Bh6sxgLd5xty2dWZhW1XJCd7kHLWSzlgjOV+Vsf19t+OYbQtkpQGLm0YE5b37u8JTCcMuoPQUGkpxkyl/AROqx/VE+YCX35zoqr3hyAnH/dFaHoM="
 
     - STAGING_INDEX=https://pypi.anaconda.org/ales-erjavec/simple/
-
+    - PIP_DISABLE_PIP_VERSION_CHECK=1
     # PyPi wheel build requirements
     - WHEEL_VER=0.29
     - PIP_VER=9.0.3
@@ -55,7 +55,7 @@ install:
   - git fetch origin $BUILD_BRANCH
   - git checkout $BUILD_COMMIT
   - echo $(python --version) $(which python)
-  - python setup.py clean --all bdist_wheel --dist-dir ../dist
+  - python setup.py config --with-htmlhelp bdist_wheel --dist-dir ../dist
   - cd ..
 
 script:
