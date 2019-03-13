@@ -1,3 +1,6 @@
 [submodule "orange3"]
 	path = orange3
 	url = https://github.com/biolab/orange3.git
+[submodule "multibuild"]
+	path = multibuild
+	url = https://github.com/matthew-brett/multibuild.git
