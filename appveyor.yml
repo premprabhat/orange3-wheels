@@ -4,66 +4,52 @@ environment:
   global:
     REPO_DIR: orange3
     BUILD_BRANCH: master
-    BUILD_COMMIT: 3.20.1
-    STAGING_INDEX: https://pypi.anaconda.org/ales-erjavec/simple
-    NUMPY_BUILD_VER: 1.9.3
-    SPHINX_BUILD_VER: 1.8.2
-    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    BUILD_COMMIT: FETCH_HEAD
+
     # Token generated using:
     #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
     ANACONDA_CLOUD_TOKEN:
       secure: 8nyg3UvcGNThF6GKADazElqSPuQrExpj2fIw3h1glFFVYSCIM0nM73pQdQwF7SGP
 
+    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    PIP_BUILD_DEP: "pip~=19.0.0"
+    WHEEL_BUILD_DEP: "wheel~=0.26.0"
+
   matrix:
     - PYTHON: "C:\\Python36"
-      # disable threaded builds on Python 3.6 when using numpy's distutils
-      # (https://github.com/numpy/numpy/issues/7607)
-      BUILD_GLOBAL_OPTIONS: "build -j1"
+      NP_BUILD_DEP: "numpy==1.13.3"
 
     - PYTHON: "C:\\Python36-x64"
-      # disable threaded builds on Python 3.6 when using numpy's distutils
-      # (https://github.com/numpy/numpy/issues/7607)
-      BUILD_GLOBAL_OPTIONS: "build -j1"
+      NP_BUILD_DEP: "numpy==1.13.3"
 
     - PYTHON: "C:\\Python37"
-      NUMPY_BUILD_VER: 1.14.5
+      NP_BUILD_DEP: "numpy==1.14.5"
 
     - PYTHON: "C:\\Python37-x64"
-      NUMPY_BUILD_VER: 1.14.5
+      NP_BUILD_DEP: "numpy==1.14.5"
 
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-  - "%PYTHON%\\python -m pip install wheel==0.26.* pip==9.* sphinx==%SPHINX_BUILD_VER%"
-  - "%PYTHON%\\python -m pip install --extra-index-url %STAGING_INDEX% numpy==%NUMPY_BUILD_VER%"
+  - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - python -m pip install %PIP_BUILD_DEP%
+  - python -m pip install --only-binary numpy %NP_BUILD_DEP% %WHEEL_BUILD_DEP%
   # https://bugs.python.org/issue29943
-  - '%PYTHON%\python -c "import sys; assert not sys.version_info[:3] == (3, 6, 1)"'
+  - python -c "import sys; assert not sys.version_info[:3] == (3, 6, 1)"
 
 build_script:
   - git submodule update --init
   - cd %REPO_DIR%
   - git fetch origin %BUILD_BRANCH%
   - git checkout %BUILD_COMMIT%
-  - "%PYTHON%\\python setup.py config --with-htmlhelp %BUILD_GLOBAL_OPTIONS% bdist_wheel --dist-dir ../dist"
+  - python setup.py %BUILD_GLOBAL_OPTIONS% bdist_wheel --dist-dir ../dist
   - cd ..
-
-test_script:
-  - "%PYTHON%\\python -m venv --clear %USERPROFILE%\\testenv"
-  - "%USERPROFILE%\\testenv\\Scripts\\activate"
-#  - python -c "import sys; print(sys.prefix)"
-#  - python -c "import sys; print(sys.version)"
-#  - python -m pip install pip==8.1.*
-#  - python -m pip install --no-deps --no-index --find-links dist --pre Orange3
-#  - python -m pip install --extra-index-url %STAGING_INDEX%  --only-binary numpy,scipy,bottlechest,scikit-learn Orange3
-#  - python -m unittest -v Orange.tests
-
 
 artifacts:
   - path: dist\*
 
-
 on_success:
-  - "echo %CWD%"
-  - "%PYTHON%\\python -m pip install anaconda-client"
-  - "%PYTHON%\\Scripts\\anaconda --token %ANACONDA_CLOUD_TOKEN% upload --no-progress --label staging --force dist\\*.whl"
+  - echo %CWD%
+  - python -m pip install anaconda-client
+  - anaconda --token %ANACONDA_CLOUD_TOKEN% upload --no-progress --label staging --force dist\\*.whl
