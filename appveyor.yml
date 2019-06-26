@@ -4,7 +4,7 @@ environment:
   global:
     REPO_DIR: orange3
     BUILD_BRANCH: master
-    BUILD_COMMIT: 3.21.0
+    BUILD_COMMIT: 3.22.0
 
     # Token generated using:
     #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
