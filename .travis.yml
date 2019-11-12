@@ -39,6 +39,12 @@ matrix:
         - PLAT=x86_64
         - NP_BUILD_DEP="numpy~=1.14.0"
 
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - PLAT=x86_64
+        - NP_BUILD_DEP="numpy~=1.17.4"
+
     - os: osx
       language: generic
       env:
@@ -49,6 +55,13 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP="numpy~=1.14.0"
+
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - MB_PYTHON_OSX_VER=10.9
+        - NP_BUILD_DEP="numpy~=1.17.4"
 
 cache:
   pip: true
