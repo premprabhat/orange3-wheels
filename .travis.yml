@@ -1,10 +1,4 @@
-
-language: python
-# The Travis Python version is unrelated to the version we build and test
-# with.  This is set with the MB_PYTHON_VERSION variable.
-python: "3.5"
-dist: trusty
-services: docker
+language: generic
 
 env:
   global:
@@ -20,48 +14,53 @@ env:
     # PyPi wheel build requirements
     - PIP_BUILD_DEP="pip~=19.0.3"
     - NP_BUILD_DEP="numpy~=1.13.0"
-    - WHEEL_BUILD_DEP="wheel==0.29.*"
+    - WHEEL_BUILD_DEP="wheel"
 
 matrix:
-  exclude:
-    # Exclude the default Python 3.5 build
-    - python: "3.5"
-
   include:
     - os: linux
+      dist: xenial
+      language: python
+      python: 3.6
       env:
         - MB_PYTHON_VERSION=3.6
         - PLAT=x86_64
 
     - os: linux
+      dist: xenial
+      language: python
+      python: 3.6
       env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=x86_64
         - NP_BUILD_DEP="numpy~=1.14.0"
 
     - os: linux
+      dist: xenial
+      language: python
+      python: 3.6
       env:
         - MB_PYTHON_VERSION=3.8
         - PLAT=x86_64
         - NP_BUILD_DEP="numpy~=1.17.4"
 
     - os: osx
-      language: generic
       env:
         - MB_PYTHON_VERSION=3.6
+        - WHEEL_BUILD_DEP="wheel==0.31.1"
 
     - os: osx
-      language: generic
       env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP="numpy~=1.14.0"
+        - WHEEL_BUILD_DEP="wheel==0.31.1"
 
     - os: osx
-      language: generic
       env:
         - MB_PYTHON_VERSION=3.8
         - MB_PYTHON_OSX_VER=10.9
         - NP_BUILD_DEP="numpy~=1.17.4"
+        - WHEEL_BUILD_DEP="wheel==0.31.1"
 
 cache:
   pip: true
@@ -78,7 +77,12 @@ install:
     # Maybe get and clean and patch source
     - clean_code $REPO_DIR $BUILD_COMMIT
     - BUILD_DEPENDS="$NP_BUILD_DEP $WHEEL_BUILD_DEP"
-    - build_wheel $REPO_DIR $PLAT
+    - |-
+      if [ $(uname) == "Darwin" ]; then
+          build_bdist_wheel $REPO_DIR $PLAT;
+      else
+          build_wheel $REPO_DIR $PLAT;
+      fi
 
 script:
     - echo "Skip"
@@ -86,7 +90,6 @@ script:
 
 after_success:
   - shasum -a 256 ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
-  - echo $(curl --upload-file ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl https://transfer.sh/)
   # anaconda-client on pypi is old and cannot upload packages build with newer
   # versions of 'wheel'.
   - pip install --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client~=1.7.2
