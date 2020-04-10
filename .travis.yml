@@ -85,7 +85,6 @@ script:
 
 after_success:
   - shasum -a 256 ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
-  - echo $(curl --upload-file ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl https://transfer.sh/)
   # anaconda-client on pypi is old and cannot upload packages build with newer
   # versions of 'wheel'.
   - pip install --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client~=1.7.2
