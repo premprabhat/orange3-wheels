@@ -2,6 +2,7 @@ language: generic
 
 env:
   global:
+    - GIT_REPO=https://github.com/biolab/orange3.git
     - REPO_DIR=orange3
     - BUILD_BRANCH=master
     - BUILD_COMMIT=3.27.1
@@ -75,7 +76,11 @@ before_install:
 
 install:
     # Maybe get and clean and patch source
-    - clean_code $REPO_DIR $BUILD_COMMIT
+    - git clone $GIT_REPO $REPO_DIR
+    - cd $REPO_DIR
+    - git fetch origin $BUILD_BRANCH
+    - git checkout $BUILD_COMMIT
+    - cd ..
     - BUILD_DEPENDS="$NP_BUILD_DEP $WHEEL_BUILD_DEP"
     - build_wheel $REPO_DIR $PLAT;
 

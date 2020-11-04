@@ -2,6 +2,7 @@
 
 environment:
   global:
+    GIT_REPO: https://github.com/biolab/orange3.git
     REPO_DIR: orange3
     BUILD_BRANCH: master
     BUILD_COMMIT: 3.27.1
@@ -45,7 +46,7 @@ install:
   - python -c "import sys; assert not sys.version_info[:3] == (3, 6, 1)"
 
 build_script:
-  - git submodule update --init
+  - git clone %GIT_REPO% %REPO_DIR%
   - cd %REPO_DIR%
   - git fetch origin %BUILD_BRANCH%
   - git checkout %BUILD_COMMIT%
