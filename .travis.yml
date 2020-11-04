@@ -84,5 +84,5 @@ after_success:
   - shasum -a 256 ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
   # anaconda-client on pypi is old and cannot upload packages build with newer
   # versions of 'wheel'.
-  - pip install --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client~=1.7.2
+  - pip install --prefer-binary --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client~=1.7.2
   - anaconda --token $ANACONDA_CLOUD_TOKEN upload --no-progress --label staging --force ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
