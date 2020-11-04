@@ -12,7 +12,7 @@ environment:
       secure: OJnHSj6KOImC07G341HsGTgy5FmgxxpV7Hm6UJkR0c86v+7BVoQEzDNOAqIgXF7L
 
     PIP_DISABLE_PIP_VERSION_CHECK: "1"
-    PIP_BUILD_DEP: "pip~=19.3.1"
+    PIP_BUILD_DEP: "pip~=20.2.3"
     WHEEL_BUILD_DEP: "wheel~=0.26.0"
 
   matrix:
@@ -49,7 +49,7 @@ build_script:
   - cd %REPO_DIR%
   - git fetch origin %BUILD_BRANCH%
   - git checkout %BUILD_COMMIT%
-  - python setup.py %BUILD_GLOBAL_OPTIONS% bdist_wheel --dist-dir ../dist
+  - python -m pip wheel --no-deps -w ../dist ./
   - cd ..
 
 artifacts:
