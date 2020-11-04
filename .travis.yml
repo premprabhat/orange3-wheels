@@ -45,15 +45,18 @@ matrix:
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.6
+        - MACOSX_DEPLOYMENT_TARGET=10.6
 
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.7
+        - MACOSX_DEPLOYMENT_TARGET=10.6
 
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.8
         - MB_PYTHON_OSX_VER=10.9
+        - MACOSX_DEPLOYMENT_TARGET=10.9
 
 cache:
   pip: true
