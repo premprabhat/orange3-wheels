@@ -14,7 +14,6 @@ env:
     - PIP_DISABLE_PIP_VERSION_CHECK=1
     # PyPi wheel build requirements
     - PIP_BUILD_DEP="pip~=20.2.3"
-    - NP_BUILD_DEP="numpy~=1.13.0"
     - WHEEL_BUILD_DEP="wheel"
 
 matrix:
@@ -34,7 +33,6 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=x86_64
-        - NP_BUILD_DEP="numpy~=1.14.0"
 
     - os: linux
       dist: xenial
@@ -43,25 +41,19 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.8
         - PLAT=x86_64
-        - NP_BUILD_DEP="numpy~=1.17.4"
 
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.6
-        - WHEEL_BUILD_DEP="wheel==0.31.1"
 
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.7
-        - NP_BUILD_DEP="numpy~=1.14.0"
-        - WHEEL_BUILD_DEP="wheel==0.31.1"
 
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.8
         - MB_PYTHON_OSX_VER=10.9
-        - NP_BUILD_DEP="numpy~=1.17.4"
-        - WHEEL_BUILD_DEP="wheel==0.31.1"
 
 cache:
   pip: true
@@ -81,7 +73,7 @@ install:
     - git fetch origin $BUILD_BRANCH
     - git checkout $BUILD_COMMIT
     - cd ..
-    - BUILD_DEPENDS="$NP_BUILD_DEP $WHEEL_BUILD_DEP"
+    - BUILD_DEPENDS="$WHEEL_BUILD_DEP"
     - build_wheel $REPO_DIR $PLAT;
 
 script:

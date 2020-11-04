@@ -18,22 +18,16 @@ environment:
 
   matrix:
     - PYTHON: "C:\\Python36"
-      NP_BUILD_DEP: "numpy==1.13.3"
 
     - PYTHON: "C:\\Python36-x64"
-      NP_BUILD_DEP: "numpy==1.13.3"
 
     - PYTHON: "C:\\Python37"
-      NP_BUILD_DEP: "numpy==1.14.5"
 
     - PYTHON: "C:\\Python37-x64"
-      NP_BUILD_DEP: "numpy==1.14.5"
 
     - PYTHON: "C:\\Python38"
-      NP_BUILD_DEP: "numpy==1.17.4"
 
     - PYTHON: "C:\\Python38-x64"
-      NP_BUILD_DEP: "numpy==1.17.4"
 
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
@@ -41,7 +35,7 @@ cache:
 install:
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - python -m pip install %PIP_BUILD_DEP%
-  - python -m pip install --only-binary numpy %NP_BUILD_DEP% %WHEEL_BUILD_DEP%
+  - python -m pip install %WHEEL_BUILD_DEP%
   # https://bugs.python.org/issue29943
   - python -c "import sys; assert not sys.version_info[:3] == (3, 6, 1)"
 
