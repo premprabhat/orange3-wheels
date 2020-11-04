@@ -13,7 +13,7 @@ environment:
 
     PIP_DISABLE_PIP_VERSION_CHECK: "1"
     PIP_BUILD_DEP: "pip~=20.2.3"
-    WHEEL_BUILD_DEP: "wheel~=0.26.0"
+    WHEEL_BUILD_DEP: "wheel"
 
   matrix:
     - PYTHON: "C:\\Python36"
