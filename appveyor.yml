@@ -58,5 +58,5 @@ on_success:
   - echo %CWD%
   # anaconda-client on pypi is old and cannot upload packages build with newer
   # versions of 'wheel'.
-  - python -m pip install --prefer-binary --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client~=1.7.2
+  - python -m pip install --prefer-binary --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client==1.7.2+11.g65c20cd
   - anaconda --token %ANACONDA_CLOUD_TOKEN% upload --no-progress --label staging --force dist\\*.whl
