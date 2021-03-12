@@ -42,19 +42,35 @@ matrix:
         - MB_PYTHON_VERSION=3.8
         - PLAT=x86_64
 
+    - os: linux
+      dist: xenial
+      language: python
+      python: 3.6
+      env:
+        - MB_PYTHON_VERSION=3.9
+        - PLAT=x86_64
+
     - os: osx
       env:
-        - MB_PYTHON_VERSION=3.6
+        - MB_PYTHON_VERSION=3.6.8
+        - MB_PYTHON_OSX_VER=10.6
         - MACOSX_DEPLOYMENT_TARGET=10.6
 
     - os: osx
       env:
-        - MB_PYTHON_VERSION=3.7
+        - MB_PYTHON_VERSION=3.7.6
+        - MB_PYTHON_OSX_VER=10.6
         - MACOSX_DEPLOYMENT_TARGET=10.6
 
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.8
+        - MB_PYTHON_OSX_VER=10.9
+        - MACOSX_DEPLOYMENT_TARGET=10.9
+
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.9
         - MB_PYTHON_OSX_VER=10.9
         - MACOSX_DEPLOYMENT_TARGET=10.9
 
@@ -87,5 +103,5 @@ after_success:
   - shasum -a 256 ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
   # anaconda-client on pypi is old and cannot upload packages build with newer
   # versions of 'wheel'.
-  - pip install --prefer-binary --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client~=1.7.2
+  - pip install --prefer-binary --extra-index-url https://pypi.anaconda.org/ales-erjavec/simple anaconda-client==1.7.2+11.g65c20cd
   - anaconda --token $ANACONDA_CLOUD_TOKEN upload --no-progress --label staging --force ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
