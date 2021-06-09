@@ -5,7 +5,7 @@ environment:
     GIT_REPO: https://github.com/biolab/orange3.git
     REPO_DIR: orange3
     BUILD_BRANCH: master
-    BUILD_COMMIT: 3.29.2
+    BUILD_COMMIT: 3.29.3
 
     # Token generated using:
     #    anaconda auth --create --name CI-UPLOAD --scopes "repos pypi api:read api:write"
